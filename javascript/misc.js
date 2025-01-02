@@ -215,3 +215,102 @@ const square = (x) => x * x;
 
 const compute = compose(square, double1, addOne);
 console.log(compute(2)); // ((2 + 1) * 2)² = 36
+
+// ==============================
+// 5 - Destructuring
+// ==============================
+
+// Extracting values from arrays or properties from objects into distinct variables
+
+// 1. Basic Destructuring
+const person = { name: "John", age: 30 };
+const { name, age } = person;
+console.log(name); // "John"
+console.log(age); // 30
+
+const [a, b] = [1, 2];
+console.log(a); // 1
+console.log(b); // 2
+
+// 2. Destructuring with Default Values
+const { x = 10 } = {};
+console.log(x); // 10
+
+// 3. Nested Destructuring
+const person1 = {
+  name: "John",
+  age: 30,
+  address: { city: "New York", state: "NY" },
+};
+const {
+  name1,
+  address: { city },
+} = person1;
+console.log(name1); // "John"
+console.log(city); // "New York"
+
+// 4. Destructuring with Rest
+const [first, ...rest] = [1, 2, 3, 4];
+console.log(first); // 1
+console.log(rest); // [2, 3, 4]
+
+// 5. Destructuring with Spread
+const numbers1 = [1, 2, 3, 4, 5];
+const [first1, second1, ...rest1] = numbers1;
+console.log(first1); // 1
+console.log(second1); // 2
+console.log(rest1); // [3, 4, 5]
+
+// ==============================
+// 6 - Rest Parameter (...)
+// ==============================
+
+// 1. Rest in function parameters - collects all remaining arguments into an array
+function sum(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+
+// Real-world example
+function createUser(firstName, lastName, ...otherInfo) {
+  return {
+    firstName,
+    lastName,
+    additionalInfo: otherInfo,
+  };
+}
+console.log(createUser("John", "Doe", "Developer", 30, "New York"));
+// { firstName: "John", lastName: "Doe", additionalInfo: ["Developer", 30, "New York"] }
+
+// ==============================
+// 7 - Spread Operator (...)
+// ==============================
+
+// 1. Spread with Arrays - expands an array into individual elements
+const numbers5 = [1, 2, 3];
+const newNumbers5 = [...numbers5, 4, 5];
+console.log(newNumbers5); // [1, 2, 3, 4, 5]
+
+// 2. Spread with Objects - copies properties
+const baseConfig = { api: "http://api.com", timeout: 3000 };
+const finalConfig = {
+  ...baseConfig,
+  debug: true,
+};
+console.log(finalConfig); // { api: "http://api.com", timeout: 3000, debug: true }
+
+// 3. Common Use Cases
+
+// Combining arrays
+const fruits = ["apple", "orange"];
+const vegetables = ["carrot", "potato"];
+const produce = [...fruits, ...vegetables];
+console.log(produce); // ["apple", "orange", "carrot", "potato"]
+
+// Copying arrays/objects (shallow copy)
+const originalArray = [1, 2, 3];
+const copy = [...originalArray];
+
+// Function arguments
+const numbers4 = [1, 2, 3];
+console.log(Math.max(...numbers4)); // 3
