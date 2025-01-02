@@ -203,7 +203,7 @@ stack.push(2);
 stack.push(3);
 console.log(stack.pop()); // 3
 console.log(stack.isEmpty()); // false
-console.log(stack.isFull()); // true
+console.log(stack.isFull()); // false
 
 // Lets create a stack of strings
 const words = "A quick brown fox jumps over the lazy dog".split(' ');
