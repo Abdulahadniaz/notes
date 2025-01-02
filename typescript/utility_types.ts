@@ -161,4 +161,53 @@ const userToUpdate2: newUserInfo = { name: "John Doe", age: 20 }
 
 console.log(userToUpdate2) // { name: 'John Doe', age: 20 }
 
-// 7. Exclude
+// 7. Exclude<UnionType, ExcludedMembers>
+
+// Exclude is used to exclude the properties from the UnionType.
+// ExcludedMembers tell us which types to remove
+// ExcludedMembers can also be a UnionType
+
+type T0 = Exclude<"a" | "b" | "c", "a">;
+//type T0 = "b" | "c"
+
+type T1 = Exclude<"a" | "b" | "c", "a" | "b">;
+//type T1 = "c"
+
+type T2 = Exclude<string | number | (() => void), Function>;
+//type T2 = string | number
+
+type Shape =
+    | { kind: "circle"; radius: number }
+    | { kind: "square"; x: number }
+    | { kind: "triangle"; x: number; y: number };
+
+type T3 = Exclude<Shape, { kind: "circle" }>
+
+/*
+type T3 = {
+    kind: "square";
+    x: number;
+} | {
+    kind: "triangle";
+    x: number;
+    y: number;
+}
+*/
+
+// 8. Extract<Type, Union>
+type T00 = Extract<"a" | "b" | "c", "a" | "f">;
+//type T00 = "a"
+
+type T11 = Extract<"a" | "b" | "c", "a" | "b">;
+//type T11 = "a" | "b"
+
+type T22 = Extract<string | number | (() => void), Function>;
+//type T22 = () => void
+
+type ShapeUpdated =
+    | { kind: "circle"; radius: number }
+    | { kind: "square"; x: number }
+    | { kind: "triangle"; x: number; y: number };
+
+type T33 = Extract<ShapeUpdated, { kind: "triangle" }>
+// type T33 = { kind: "triangle"; x: number; y: number }
