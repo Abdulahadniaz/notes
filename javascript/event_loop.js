@@ -104,3 +104,5 @@ Queue Priority:
     2. Microtask Queue (Promises, queueMicrotask)
     3. Callback Queue (setTimeout, setInterval, DOM events)
 */
+
+// web workers, worker threads, functional programming

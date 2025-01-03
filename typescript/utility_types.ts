@@ -11,11 +11,16 @@
 // 7. Exclude
 // 8. Extract
 // 9. NonNullable
-// 10. ReturnType
-// 11. InstanceType
-// 12. Parameters
-// 13. ConstructorParameters
-// 14. ConstructorType
+// 10. Parameters
+// 11. ConstructorParameters
+// 12. ReturnType
+// 13. InstanceType
+// 14. NoInfer
+// 15. ThisParameterType
+// 16. OmitThisParameter
+// 17. ThisType
+// 18. Awaited
+
 
 // 1. Partial<Type>
 
@@ -211,3 +216,119 @@ type ShapeUpdated =
 
 type T33 = Extract<ShapeUpdated, { kind: "triangle" }>
 // type T33 = { kind: "triangle"; x: number; y: number }
+
+// 9. NonNullable<Type>
+
+// NonNullable is used to remove null and undefined from the Type
+
+type T001 = string | null | undefined;
+type T002 = NonNullable<T001>;
+// type T002 = string
+
+type T011 = NonNullable<string[] | null | undefined>;
+// type T011 = string[]
+
+// 10. Parameters<Type>
+
+// This utility type is used to create a tuple type from parameters of a function given in type.
+
+type T101 = Parameters<() => string>;
+// type T101 = []
+
+type T102 = Parameters<(s: string) => void>;
+// type T102 = [string]
+
+declare function f1(arg: { a: number; b: string }): void;
+type T103 = Parameters<typeof f1>;
+
+/*type T103 = [arg: {
+    a: number;
+    b: string;
+}]
+*/
+
+declare function f2(arg1: string, arg2: number): void;
+type T104 = Parameters<typeof f2>;
+// type T104 = [string, number]
+
+// Type 'string' does not satisfy the constraint '(...args: any) => any'.ts(2344)
+// Error. Uncomment the next line to see
+// type T105 = Parameters<string>;
+
+// 11. ConstructorParameters<Type>
+
+// This utility type is used to extract the parameters of a constructor function type and create a tuple type from them.
+
+type T106 = ConstructorParameters<ErrorConstructor>;
+// type T106 = [message?: string | undefined]
+
+type T107 = ConstructorParameters<FunctionConstructor>;
+// type T107 = string[]
+
+class C {
+    constructor(a: number, b: string) { }
+}
+
+type T108 = ConstructorParameters<typeof C>;
+// type T108 = [a: number, b: string]
+
+// 12. ReturnType<Type>
+
+// This utility type is used to extract the return type of a function type.
+
+type T121 = ReturnType<() => string>;
+// type T121 = string
+
+type T122 = ReturnType<(s: string) => void>;
+// type T122 = void
+
+declare function f3(): { a: number; b: string };
+type T123 = ReturnType<typeof f3>;
+// type T123 = { a: number; b: string }
+
+type T124 = ReturnType<any>;
+// type T124 = any
+
+type T125 = ReturnType<never>;
+// type T125 = never
+
+type T126 = ReturnType<<T extends U, U extends number[]>(arg: T) => T>;
+// type T126 = number[]
+
+// Error. Uncomment the next line to see
+// type T127 = ReturnType<string>;
+
+// undefined. Uncomment the next line to see
+// type T8 = ReturnType<Function>;
+
+// 13. InstanceType<Type>
+
+// This utility type is used to extract the instance type of a constructor function given in type.
+
+class CC {
+    x = 0;
+    y = 0;
+
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+type T131 = InstanceType<typeof CC>;
+// type T131 = CC
+
+class UserMetaData {
+    name: string;
+    age: number;
+    email: string;
+
+    constructor(name: string, age: number, email: string) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
+}
+
+type T132 = InstanceType<typeof UserMetaData>;
+// type T132 = UserMetaData
