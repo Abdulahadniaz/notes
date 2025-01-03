@@ -11,11 +11,11 @@
 
 // Parent class
 // A -> B
-public class Animal {
+public class inheritance {
     protected String name;
     protected int age;
 
-    public Animal(String name, int age) {
+    public inheritance(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -26,7 +26,7 @@ public class Animal {
 }
 
 // Child class
-public class Dog extends Animal {
+public class Dog extends inheritance {
     private String breed;
 
     public Dog(String name, int age, String breed) {
