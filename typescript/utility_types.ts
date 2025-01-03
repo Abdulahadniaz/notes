@@ -118,12 +118,12 @@ type User1 = {
 
 type UserRecord = Record<number, User1>;
 
-const users: UserRecord = {
+const users11: UserRecord = {
     1: { id: 1, name: "John Doe", email: "john.doe@example.com" },
     2: { id: 2, name: "Jane Doe", email: "jane.doe@example.com" },
 }
 
-console.log(users)
+console.log(users11)
 
 // 5. Pick<Type, Keys>
 
