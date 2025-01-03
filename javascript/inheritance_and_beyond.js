@@ -82,3 +82,16 @@ Dog.prototype.bark = function () {
 const myDog = new Dog("Buddy", "Golden Retriever");
 myDog.makeSound(); // "Some sound"
 myDog.bark(); // "Woof!"
+
+/*
+__proto__ is a property that points to the prototype of an object. It's the actual link between an object and its prototype (parent). However, it's important to note that __proto__ is deprecated for direct manipulation, and we should use Object.getPrototypeOf() and Object.setPrototypeOf() instead.
+*/
+
+/*
+Best Practices:
+Use Object.getPrototypeOf() instead of __proto__ for reading
+Use Object.setPrototypeOf() or Object.create() for setting prototypes
+Prefer class syntax for creating inheritance hierarchies
+Keep prototype chains shallow for better performance
+Use composition over inheritance when possible
+*/
