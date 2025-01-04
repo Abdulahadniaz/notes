@@ -21,7 +21,6 @@
 // 17. ThisType
 // 18. Awaited
 
-
 // 1. Partial<Type>
 
 // Partial makes all properties in the interface or Type optional
@@ -332,3 +331,75 @@ class UserMetaData {
 
 type T132 = InstanceType<typeof UserMetaData>;
 // type T132 = UserMetaData
+
+// 14. NoInfer<Type>
+
+// This utility type is used to remove the inference of the type from the generic.
+
+function createStreetLight<C extends string>(
+    colors: C[],
+    defaultColor?: NoInfer<C>,
+) {
+    // ...
+}
+createStreetLight(["red", "yellow", "green"], "red");  // OK
+// uncomment the next line to see the error as blue is not in the array
+// createStreetLight(["red", "yellow", "green"], "blue")
+
+/*
+TypeScript first infers C from the colors array parameter to be "red" | "yellow" | "green"
+The NoInfer prevents TypeScript from expanding the type of C based on the defaultColor parameter
+Therefore, defaultColor must be one of the colors already in the colors array
+This is why "blue" causes an error - it's not one of the inferred colors
+*/
+
+// ThisParameterType<Type>
+
+// This utility type is used to extract the type of the this parameter of a function type.
+
+type T151 = ThisParameterType<() => void>;
+// type T151 = unknown
+
+type T152 = ThisParameterType<(s: string) => void>;
+// type T152 = string
+
+function toHex(this: Number) {
+    return this.toString(16);
+}
+
+function numberToString(n: ThisParameterType<typeof toHex>) {
+    return toHex.apply(n);
+}
+// type of n would be number
+
+// 16. OmitThisParameter<Type>
+
+// This utility type is used to omit the this parameter from a function type.
+
+function toHex1(this: Number) {
+    return this.toString(16);
+}
+
+const fiveToHex: OmitThisParameter<typeof toHex1> = toHex1.bind(5);
+
+console.log(fiveToHex());
+// type of fiveToHex is () => string. number is not removed as this parameter
+
+// 17. ThisType<Type>
+
+// acts as empty interface
+
+// This utility does not return a transformed type. Instead, it serves as a marker for a contextual this type. Note that the noImplicitThis flag must be enabled to use this utility.
+
+// 18. Awaited<Type>
+
+// This utility type is used to extract the type of the value returned by a Promise.
+
+type T181 = Awaited<Promise<string>>;
+// type T181 = string
+
+type B = Awaited<Promise<Promise<number>>>;
+// type B = number
+
+type C11 = Awaited<boolean | Promise<number>>;
+// type C11 = boolean | number
