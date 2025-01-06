@@ -383,7 +383,7 @@ function toHex1(this: Number) {
 const fiveToHex: OmitThisParameter<typeof toHex1> = toHex1.bind(5);
 
 console.log(fiveToHex());
-// type of fiveToHex is () => string. number is not removed as this parameter
+// type of fiveToHex is () => string. number is removed as this parameter
 
 // 17. ThisType<Type>
 

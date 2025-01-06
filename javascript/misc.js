@@ -96,7 +96,7 @@ function example() {
 }
 
 // ==============================
-// 3 - Closure
+// 3 - Closure - A function that remembers the variables from its parent scope even after the parent function has returned
 // ==============================
 
 // 1. Basic Closure Example
